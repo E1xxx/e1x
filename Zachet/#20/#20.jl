@@ -13,3 +13,7 @@ function inverse_side(side::HorizonSide)::HorizonSide
     inv_side = HorizonSide((Int(side) + 2) % 4)
     return inv_side
 end
+
+function next_side(side::HorizonSide)::HorizonSide
+    return HorizonSide( (Int(side) + 1 ) % 4 )
+end
