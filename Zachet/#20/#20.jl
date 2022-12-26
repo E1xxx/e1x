@@ -8,3 +8,8 @@ function through!(r::Robot, side::HorizonSide, n_steps::Int = 0)
         along!(r, inverse_side(next_side(side)), n_steps)
     end
 end
+
+function inverse_side(side::HorizonSide)::HorizonSide
+    inv_side = HorizonSide((Int(side) + 2) % 4)
+    return inv_side
+end
