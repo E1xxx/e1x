@@ -1,20 +1,16 @@
 using HorizonSideRobots
 
-function proxod!(robot)
-    while !isborder(robot,Nord)
-        move!(robot,Nord)
-    end
-    imax,jmax=r.situation.frame_size
-    numberi=10
-    side=Ost
-    while isborder(robot,Nord)
-        move!(robot,side)
-        numberi+=1
-        if (numberi>=imax)
-            side=inverse(side)
-            numberi=0
-        end
+function find_space!(r::Robot, side::HorizonSide)
+    n_steps = 1
+    ort_side = HorizonSide((Int(side) + 1) % 4)
+    while isborder(r, side)
+        moves!(r, ort_side, n_steps)
+        n_steps += 1
+        ort_side = inverse_side(ort_side)
     end
 end
 
-inverse(side::HorizonSide)=HorizonSide((Int(side)+2)%4)
+function move_through!(r::Robot, side::HorizonSide)
+    find_space!(r, side)
+    move!(r, side)
+end
